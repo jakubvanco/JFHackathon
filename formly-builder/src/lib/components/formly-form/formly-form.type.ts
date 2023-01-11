@@ -23,6 +23,7 @@ export const zodField = z.object({
 });
 
 export const zodInputField = zodField.extend({
+  type: z.literal('input'),
   templateOptions: zodFieldTemplateOptions
     .extend({
       minLength: z.number().optional(),
@@ -43,9 +44,12 @@ export const zodInputField = zodField.extend({
     .optional(),
 });
 
-export const zodTextAreaField = zodInputField;
+export const zodTextAreaField = zodInputField.extend({
+  type: z.literal('textarea'),
+});
 
 export const zodCheckboxField = zodField.extend({
+  type: z.literal('checkbox'),
   templateOptions: zodFieldTemplateOptions
     .extend({
       checkboxLabel: z.string().optional(),
@@ -55,6 +59,7 @@ export const zodCheckboxField = zodField.extend({
 });
 
 export const zodSelectField = zodField.extend({
+  type: z.literal('select'),
   templateOptions: zodFieldTemplateOptions
     .extend({
       min: z.number().optional(),
@@ -72,18 +77,30 @@ export const zodSelectField = zodField.extend({
     .optional(),
 });
 
-export type InputField = z.infer<typeof zodInputField> & FormlyFieldConfig;
-export type TextAreaField = z.infer<typeof zodTextAreaField> &
-  FormlyFieldConfig;
-export type CheckBoxField = z.infer<typeof zodCheckboxField> &
-  FormlyFieldConfig;
-export type SelectField = z.infer<typeof zodSelectField> & FormlyFieldConfig;
+export type InputField = z.infer<typeof zodInputField>;
+export type TextAreaField = z.infer<typeof zodTextAreaField>;
+export type CheckBoxField = z.infer<typeof zodCheckboxField>;
+export type SelectField = z.infer<typeof zodSelectField>;
 
 type CustomFormlyField =
   | InputField
   | TextAreaField
   | CheckBoxField
   | SelectField;
+
+const s: CustomFormlyField = {
+  type: 'checkbox',
+  templateOptions: {
+    checkboxLabel: 'sad',
+  },
+};
+
+const xx: CustomFormlyField = {
+  type: 'input',
+  templateOptions: {
+    checkboxLabel: 'ASd',
+  },
+};
 
 export const INIT_InputField: InputField = {
   type: 'input',
