@@ -1,0 +1,38 @@
+<div
+  *ngFor="let field of field.fieldGroup; let i = index; trackBy: byFieldIndex"
+  class="p-grid repeat-box"
+  [attr.data-cy]="key"
+>
+  <formly-field class="p-col" [field]="field"></formly-field>
+  <div class="p-col-fixed {{ to.attributes?.removeClass }}" *ngIf="allowRemove">
+    <!-- <div class="fake-label"> -->
+    <p-button
+      [styleClass]="to.classRemoveBtn"
+      type="button"
+      (click)="remove(i)"
+      [title]="to.removeTextTitle"
+      icon="fal fa-times"
+      [disabled]="to.disabled || false"
+    >
+    </p-button>
+    <!-- </div> -->
+  </div>
+</div>
+<div class="ui-messages-error" *ngIf="showError">
+  <div class="p-grid" *ngIf="allowAdd">
+    <div class="p-col">
+      <formly-validation-message [field]="field"></formly-validation-message>
+    </div>
+  </div>
+</div>
+<div class="p-grid" *ngIf="allowAdd">
+  <div class="p-col">
+    <p-button
+      [styleClass]="to.classAddBtn"
+      [label]="to.addText"
+      type="button"
+      (click)="add(undefined, to.initialModel)"
+      [disabled]="to.disabled || false"
+    ></p-button>
+  </div>
+</div>
