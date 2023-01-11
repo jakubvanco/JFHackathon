@@ -73,9 +73,17 @@ export const zodSelectField = zodField.extend({
 });
 
 export type InputField = z.infer<typeof zodInputField> & FormlyFieldConfig;
-export type TextAreaField = z.infer<typeof zodTextAreaField> & FormlyFieldConfig;
-export type CheckBoxField = z.infer<typeof zodCheckboxField> & FormlyFieldConfig;
+export type TextAreaField = z.infer<typeof zodTextAreaField> &
+  FormlyFieldConfig;
+export type CheckBoxField = z.infer<typeof zodCheckboxField> &
+  FormlyFieldConfig;
 export type SelectField = z.infer<typeof zodSelectField> & FormlyFieldConfig;
+
+type CustomFormlyField =
+  | InputField
+  | TextAreaField
+  | CheckBoxField
+  | SelectField;
 
 export const INIT_InputField: InputField = {
   type: 'input',
